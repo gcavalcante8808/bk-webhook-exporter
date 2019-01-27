@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  app:
+    image: gcavalcante8808/buildkite-webhook-exporter:pypy3
+    environment:
+      - PYTHONPATH=/usr/src
+      - BUILDKITE_TOKEN=${TOKEN}
+      - DEBUG=1
+    ports:
+    - 5000:5000
+    volumes:
+      - ./bk_webhook_prometheus:/usr/src/bk_webhook_prometheus
+    restart: unless-stopped

@@ -1,0 +1,61 @@
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: plugins/docker
+  settings:
+    repo: gcavalcante8808/buildkite-webhook-exporter
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    tags:
+      - ${DRONE_COMMIT}
+
+- name: Run tests
+  image: gcavalcante8808/buildkite-webhook-exporter:${DRONE_COMMIT}
+  commands:
+    - pytest --cov .
+
+- name: OS/Package Security Analisis
+  image: jmccann/drone-clair:1
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password  
+    url:
+      from_secret: clair_url
+    scan_image: gcavalcante8808/buildkite-webhook-exporter:latest
+  when:
+    branch:
+      - master
+
+- name: generate coverage
+  image: gcavalcante8808/buildkite-webhook-exporter:${DRONE_COMMIT}
+  environment:
+    CODECOV_TOKEN:
+      from_secret: codecov_token
+  commands:
+    - pip install codecov
+    - pytest --cov .
+    - codecov --commit=${DRONE_COMMIT}
+  when:
+    branch:
+      - master
+
+- name: publish as latest
+  image: plugins/docker
+  when:
+    branch:
+      - master
+  settings:
+    repo: gcavalcante8808/buildkite-webhook-exporter
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    tags:
+      - latest
+      - pypy3

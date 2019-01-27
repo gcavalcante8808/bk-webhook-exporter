@@ -1,5 +1,5 @@
-[![Build Status](https://cloud.drone.io/api/badges/gcavalcante8808/buildkite-webhook-exporter/status.svg)](https://cloud.drone.io/gcavalcante8808/buildkite-webhook-exporter)
-[![codecov](https://codecov.io/gh/gcavalcante8808/buildkite-webhook-exporter/branch/master/graph/badge.svg)](https://codecov.io/gh/gcavalcante8808/buildkite-webhook-exporter)
+[![Build Status](https://cloud.drone.io/api/badges/gcavalcante8808/bk-webhook-exporter/status.svg)](https://cloud.drone.io/gcavalcante8808/bk-webhook-exporter)
+[![codecov](https://codecov.io/gh/gcavalcante8808/buildkite-webhook-exporter/branch/master/graph/badge.svg)](https://codecov.io/gh/gcavalcante8808/bk-webhook-exporter)
 
 Buildkite-webhook-exporter
 --------------------------
